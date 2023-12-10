@@ -1,59 +1,69 @@
 export const ITEM_SETS = {
     "Red set": 50,
-    "Green set": 40,
+    "Green set": 40, //
     "Blue set": 30,
     "Yellow set": 50,
-    "Pink set": 80,
+    "Pink set": 80, //
     "Purple set": 90,
-    "Orange set": 120,
+    "Orange set": 120, //
 }
+const ADDITIONAL_DISCOUNT_ITEMS = [
+    'Green set',
+    'Pink set',
+    'Orange set',
+]
+const ADDITIONAL_DISCOUNT_PERCENTAGE = 5
 
-const prototypes = {
-    fields: {
-        item_set_name: '',
-        count: 0
+const DISCOUNT = 10
+const MEMBER_DISCOUNT_PERCENTAGE = 10
+const PERCENTAGE_MULTIPLIER = 100
+
+const itemPrototypes = {
+    itemName: '',
+    orderCount: 0,
+    pricePerItem: 0,
+    totalPrice: 0,
+    discountPercentage: 0,
+    netPrice: 0,
+
+    hasDiscount: function () {
+        return ADDITIONAL_DISCOUNT_ITEMS.includes(this.itemName) && this.orderCount >= 2
     },
-    receive: function ({ itemSet, count }) {
-        let instance = this;
-        if (typeof this === 'function')
-            instance = Object.create(prototypes)
 
-        instance.fields = {
-            item_set_name: itemSet,
-            count
-        }
-
-        return instance
+    receive: function ({ itemName, orderCount }) {
+        return Object.create({ ...this, itemName, orderCount })
     },
+
     manipulate: function () {
-        let instance = this;
-        if (typeof this === 'function')
-            instance = Object.create(prototypes)
-
-        const { item_set_name, count } = instance.fields
-        return {
-            ...instance.fields,
-            price_per_item: ITEM_SETS[item_set_name],
-            total_price: ITEM_SETS[item_set_name] * count
-        }
+        const { itemName, orderCount } = this
+        const pricePerItem = ITEM_SETS[itemName]
+        const totalPrice = pricePerItem * orderCount
+        const discountPercentage = this.hasDiscount() ? ADDITIONAL_DISCOUNT_PERCENTAGE : 0
+        const netPrice = totalPrice - (totalPrice * discountPercentage / PERCENTAGE_MULTIPLIER)
+        return { ...this, itemName, pricePerItem, totalPrice, discountPercentage, netPrice }
     }
 }
 
-const mainCalculator = {
-    calculate: function () {
-        return this;
+const billingPrototypes = {
+    items: [],
+    deskNumber: '',
+
+    calculate: function (hasMemebrCard) {
+        const totalPrice = this.items.reduce((accumulator, object) => accumulator + object.netPrice, 0)
+        const discountPercentage = hasMemebrCard ? MEMBER_DISCOUNT_PERCENTAGE : 0
+        const discountPrice = (totalPrice * discountPercentage / PERCENTAGE_MULTIPLIER)
+        const netPrice = totalPrice - discountPrice
+        return { ...this, totalPrice, discountPercentage, netPrice }
     },
-    generateBill: function () {
-        console.error('this', this)
+    generateBill: function (deskNumber) {
+        return { ...this, deskNumber }
     }
 }
 
 function Main() {
-    return function (orderItems) {
-        const instance = Object.create(mainCalculator)
-        instance.orderItems = orderItems
-        return instance;
+    return function (items) {
+        return { ...billingPrototypes, items }
     }
 }
 
-export const OrderFood = Object.assign(Main(), prototypes)
+export const OrderFood = Object.assign(Main(), itemPrototypes)
