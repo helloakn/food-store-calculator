@@ -8,7 +8,8 @@
             "app/lib": ["./src/lib/index.js"],
             "app/routes": ["./src/routes/index.js"],
             "app/controller": ["./src/controller/index.js"],
-            "app/core": ["./src/core/index.js"]
+            "app/core": ["./src/core/index.js"],
+            "app/services": ["./src/services/index.js"]
         }
     },
     "include": ["src/**/*", "app.js"]

@@ -19,7 +19,8 @@
         "./lib": "./src/lib/index.js",
         "./routes": "./src/routes/index.js",
         "./controller": "./src/controller/index.js",
-        "./core": "./src/core/index.js"
+        "./core": "./src/core/index.js",
+        "./services": "./src/services/index.js"
     },
     "author": "Aung Kyaw Nyunt (AKN)",
     "license": "MIT",
