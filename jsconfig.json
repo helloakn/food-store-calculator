@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "target": "ES6",
+        "baseUrl": ".",
+        "paths": {
+            "app/*": ["./src/*.js"],
+            "app/lib": ["./src/lib/index.js"],
+            "app/routes": ["./src/routes/index.js"],
+            "app/controller": ["./src/controller/index.js"],
+            "app/core": ["./src/core/index.js"]
+        }
+    },
+    "include": ["src/**/*", "app.js"]
+}

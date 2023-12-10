@@ -1,0 +1,37 @@
+{
+    "name": "app",
+    "version": "1.0.0",
+    "description": "js interview",
+    "main": "./src/app.js",
+    "type": "module",
+    "scripts": {
+        "dev": "nodemon app.js",
+        "test": "jest --coverage"
+    },
+    "dependencies": {
+        "express": "^4.18.2",
+        "nodemon": "^3.0.2"
+    },
+    "exports": {
+        "./*": "./src/*.js",
+        "./*.js": "./src/*.js",
+        "./*.json": "./src/*.json",
+        "./lib": "./src/lib/index.js",
+        "./routes": "./src/routes/index.js",
+        "./controller": "./src/controller/index.js",
+        "./core": "./src/core/index.js"
+    },
+    "author": "Aung Kyaw Nyunt (AKN)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/helloakn/fk-js/issues"
+    },
+    "homepage": "https://github.com/helloakn/fk-js#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/helloakn/fk-js.git"
+    },
+    "keywords": [
+        "javascript"
+    ]
+}
