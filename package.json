@@ -6,11 +6,7 @@
     "type": "module",
     "scripts": {
         "dev": "nodemon app.js",
-        "test": "jest --coverage"
-    },
-    "dependencies": {
-        "express": "^4.18.2",
-        "nodemon": "^3.0.2"
+        "test:unit": "npx jest --detectOpenHandles --forceExit --coverage"
     },
     "exports": {
         "./*": "./src/*.js",
@@ -20,7 +16,8 @@
         "./routes": "./src/routes/index.js",
         "./controller": "./src/controller/index.js",
         "./core": "./src/core/index.js",
-        "./services": "./src/services/index.js"
+        "./services": "./src/services/index.js",
+        "./models": "./src/models/index.js"
     },
     "author": "Aung Kyaw Nyunt (AKN)",
     "license": "MIT",
@@ -34,5 +31,14 @@
     },
     "keywords": [
         "javascript"
-    ]
+    ],
+    "dependencies": {
+        "@babel/preset-env": "^7.23.5",
+        "express": "^4.18.2",
+        "jest": "^29.7.0",
+        "nodemon": "^3.0.2"
+    },
+    "devDependencies": {
+        "@types/jest": "^29.5.11"
+    }
 }

@@ -40,7 +40,7 @@ const itemPrototypes = {
         const totalPrice = pricePerItem * orderCount
         const discountPercentage = this.hasDiscount() ? ADDITIONAL_DISCOUNT_PERCENTAGE : 0
         const netPrice = totalPrice - (totalPrice * discountPercentage / PERCENTAGE_MULTIPLIER)
-        return { ...this, itemName, pricePerItem, totalPrice, discountPercentage, netPrice }
+        return { ...this, itemName, pricePerItem, totalPrice, discountPercentage, netPrice, orderCount }
     }
 }
 
